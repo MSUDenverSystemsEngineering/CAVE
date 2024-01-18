@@ -168,8 +168,8 @@ Try {
         }
 
         ## <Perform Installation tasks here>
-        $exitCode = Execute-MSI -Action 'Install' -Path "awips-cave.msi" -Parameters "/QN" -PassThru
-		If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
+        $exitCode = Execute-MSI -Action "Install" -Path "$dirFiles\awips-cave-admin.msi" -Parameters "/qn" -PassThru
+        If (($exitCode.ExitCode -ne "0") -and ($mainExitCode -ne "3010")) { $mainExitCode = $exitCode.ExitCode }
 
         ##*===============================================
         ##* POST-INSTALLATION
@@ -210,7 +210,7 @@ Try {
         }
 
         ## <Perform Uninstallation tasks here>
-
+        Execute-MSI -Action "Uninstall" -Path '{1E541F4C-C007-44E8-8BC8-AFD4D84E4A73}' -PassThru -ContinueOnError $true
 
         ##*===============================================
         ##* POST-UNINSTALLATION
@@ -218,7 +218,6 @@ Try {
         [String]$installPhase = 'Post-Uninstallation'
 
         ## <Perform Post-Uninstallation tasks here>
-        Execute-MSI -Action "Uninstall" -Path '{3AF80E4C-1904-46F4-9757-6EADAD0FA86A}' -PassThru -ContinueOnError $true
 
     }
     ElseIf ($deploymentType -ieq 'Repair') {
@@ -277,8 +276,8 @@ Catch {
 # SIG # Begin signature block
 # MIImVAYJKoZIhvcNAQcCoIImRTCCJkECAQExDzANBglghkgBZQMEAgEFADB5Bgor
 # BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCB3NYoYUs+5WZFQ
-# myMLdQrqJEHKcOlLi4srkjarm7pGOqCCH8AwggVvMIIEV6ADAgECAhBI/JO0YFWU
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCD3mtxbzVtIckNx
+# q6c5ZbYVTS2Yn5o/opCyCuvel3VCUKCCH8AwggVvMIIEV6ADAgECAhBI/JO0YFWU
 # jTanyYqJ1pQWMA0GCSqGSIb3DQEBDAUAMHsxCzAJBgNVBAYTAkdCMRswGQYDVQQI
 # DBJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcMB1NhbGZvcmQxGjAYBgNVBAoM
 # EUNvbW9kbyBDQSBMaW1pdGVkMSEwHwYDVQQDDBhBQUEgQ2VydGlmaWNhdGUgU2Vy
@@ -452,32 +451,32 @@ Catch {
 # MSswKQYDVQQDEyJTZWN0aWdvIFB1YmxpYyBDb2RlIFNpZ25pbmcgQ0EgUjM2AhEA
 # pU3fcPvc8UxUgrjysXLKMTANBglghkgBZQMEAgEFAKCBhDAYBgorBgEEAYI3AgEM
 # MQowCKACgAChAoAAMBkGCSqGSIb3DQEJAzEMBgorBgEEAYI3AgEEMBwGCisGAQQB
-# gjcCAQsxDjAMBgorBgEEAYI3AgEVMC8GCSqGSIb3DQEJBDEiBCBBPk/zyi4/4D3C
-# f2dPLP1jdTfOpcPThqaG8/we3Z2MMTANBgkqhkiG9w0BAQEFAASCAYCZxbPbdNEv
-# 3QaGmz0wpvq717ilUHZVE7Kz09yK9B2WmFvdocSjLbgOeJtXM8p643jALJxL9fCM
-# rJDgO2J+rWy0Z2jEY2nDXfOU48MAO/B50+9o3zDKAo3y5F4uyLVElDYdcwjYCNQV
-# GeTLnsFk99/oOhqJRJmfQJskTKd0U8DB+PIOhPDKAIc7tedP8BteVwpuz3ITakVI
-# bKpBH6jdSvdXKvTQ2v8QgZgwxUs0ijNfiKoYlTD5nWezj4QolU5IJIxJmRrywt/A
-# FyV/RaxAs2dCbXqUz+cxErGwITSnTs/obURiSyMmjVushBYapsLFIIoEYdoDfIlJ
-# yWTkh+3NuFA1K7Nc9TX9BXj7bKAYHsOI+ZYpU5fDAzg2dblfnuCROZlyDNjUBI9g
-# g3L+eHnIaOofVc8+S9NVUWujD5cPsh83hF2Hy8LCrJpNN/iSEx1W9T75pO5ttbex
-# OvvCn803kBB8b8fq7DVRb+nU6UKNrOT1jpLkf4ThCMfMyetiL1gsRlqhggNLMIID
+# gjcCAQsxDjAMBgorBgEEAYI3AgEVMC8GCSqGSIb3DQEJBDEiBCC3/sZLepKSJXFf
+# 7sfCkVGLGWA2Mf0sDA2VmzZq56WaiTANBgkqhkiG9w0BAQEFAASCAYB/sx7qrhMb
+# boFktkvNI4GlobCWJ6ygZ/xm/a8CEoyoz3f2k5zElnYh8GIO+r9BMXM7DJPoSl4E
+# Xwt8xiKYTe1SVCmlpCYVjyJgDPCmW5btsD4lw6ULMmG991zTF/lFV4RIk6o2D/HN
+# 2343aLLilVbXpOtyK8LTFsjkqROATJbvJKtHNEapYbFG1+VY+lH10LgrdqRVE0kk
+# IvUtn6E8CrHdQppA81kJ4Qd5uxMt6qs/jN5Mi7MAcZnXTu5e4iraPwoawY74yXxK
+# WlSnmkJ6wPQeTSF++D0LUDtVcdoPF/vr4dmMn7f+iO2BkfJOSseZCzDj3u/I0Fif
+# aWF2GvABMRm0pGKG2X/Q9NcO03su2foa7Mw6ECOKOmcjz2l8Fdu7ne1/BxLARJ50
+# sA5aGAuPc39oH0Bz884D7SDpFUqWAcLpf0AmMj2QdXrdmqiLuuia/WfKA8XP2M71
+# o/uh6Rn2r0RTPaky7N2frKI8VU6zg1CT5Jbu98w6eGZ0OUuOajtqXRGhggNLMIID
 # RwYJKoZIhvcNAQkGMYIDODCCAzQCAQEwgZEwfTELMAkGA1UEBhMCR0IxGzAZBgNV
 # BAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYGA1UE
 # ChMPU2VjdGlnbyBMaW1pdGVkMSUwIwYDVQQDExxTZWN0aWdvIFJTQSBUaW1lIFN0
 # YW1waW5nIENBAhA5TCXhfKBtJ6hl4jvZHSLUMA0GCWCGSAFlAwQCAgUAoHkwGAYJ
-# KoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTE3MjAz
-# MzUzWjA/BgkqhkiG9w0BCQQxMgQw4Jsn8O6NxlRD8ypPTiOFAcy97gAr39Lnd853
-# BbJYUkD9W7WMIOUCC93p54FuIFUdMA0GCSqGSIb3DQEBAQUABIICAIsNcWX1JDQk
-# Jxy8qvFqWhbd4JJs7qkVe6tQXY4cvv0dGdqojxtGu6imIo1rSbB0orWxfQprh5oo
-# QljS7EOqNMIkJ7MqDvoqtV95dnupYPfsIU1A9/K4mkZxly4V+ni9Vao354T9Qaw8
-# DwXMkhAMNgXuDzUJ97wkl1AiD1pWIUnb0dz0u0Y844OPfyXUkRKq9HAE6y47I0bk
-# R4LtoKMO1yPlKtInHuBsL95gPXrIJtPxYYKAO7o+9pzPE6aD2coRTSMds15R617R
-# ZNHJbiu2yQx8zPa9dRE6rMpqttDYKdsHq/5+1lEn6ILl2/ZYPwNUss/5783d9Gha
-# t0kNKfAzyb/PGk3aYdWR9z/+yffyhAYhkgxqQw0W4wpcMBkt+MCpD1DCGJKP7IH9
-# zvDiPZFWi8mTlHq0fKCR/C8mbwue1WTIf0ZOeAdMI44vyC5PulaLAGhnplzULkO7
-# g4R+eBVvf6y3AtscBdB33cBlidAEjmFJ0Np/bqEHdJsYvem05zPMQf+d4kYAys4q
-# 6iKmA2WdYg6szHCRH7K/gBNwUBu33Af7cIO0nYX1Gu57Nv+U2z53VCrJfPj5a0jv
-# DynqyAP7PNNFSL0rOraMFza2+0U82dU+AnoFU056/hpJggDRdceTCb3GiGwFoa0U
-# x6ucaMiy7cLxl8WCBmRUhmbOCYpVfM4w
+# KoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjQwMTE4MjAy
+# NzM5WjA/BgkqhkiG9w0BCQQxMgQw1AbsVrWPAxnGi+iljKtyujnDIxvJnn90aqPH
+# xkD3frIkay60bSFed9K+DVgh7rhvMA0GCSqGSIb3DQEBAQUABIICAGn3qc1ggRHA
+# nEHQSmS+m8lvEmpnkfMfclJIxnSH/jqay7L32jDOLnY4IXTqJxuDYbgSWcxUP14R
+# d4YASwFufaTIJ2VsGL1LQECZmOPMS6xMw5Z/J0pHcHUAqLyTqfvDI4vAchNUK3dY
+# eeLKGw5ZvVJA7BRIvcYXf3/EXXSl8faluB8S4EevTIkQpRuzwLaoLbK1jICmtkPx
+# DnadyM1LOUi1mp6cW8Vb17SOuiOo3SEYTeGlFaUS+1vEiB4ApW6cZ/91G95buBOC
+# h6NKb98m98RZRGv9OvwsylzHznGMmTbgyEOBeoNFMOcWqOZ3j7v5N7q/EcuiesVo
+# RAs/Y4cKYsOKcTFRnyhT7HkrMpvsWi/XrdQzCB64nPxfBklVJA8G/xkHlAAcsUNl
+# pQykGKAaQ6CmCLphXyJaFbG+j4SAyVgmAuaV3NpynAT3u3wEsRSEI1qyc+uziroU
+# Uu+OwFwgraHUZfYzO1thYouheMctdyCD7wuuyamaamcmwB56cTcW7sq/+3H+nCcZ
+# SNAbrNQN/rRZdipwmACUVJ0yAPPzVCaCbaI+mHNfCjFd2P+ONiESget/iStNJf3u
+# 72hR8zzd7+guELXEg864ci3brNWGhSuBT6H8o/xQQjrIIht64ZcPluLWWeUUPFiO
+# /KAyptdFEGtbfLV8EYhjruvSkBbvuU/o
 # SIG # End signature block
